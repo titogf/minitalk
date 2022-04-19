@@ -6,7 +6,7 @@
 /*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:57:16 by gfernand          #+#    #+#             */
-/*   Updated: 2022/04/05 17:46:27 by gfernand         ###   ########.fr       */
+/*   Updated: 2022/04/19 12:10:57 by gfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 int	main(void)
 {
 	ft_printf("PID: %d", getpid());
-	return (EXIT);
+	return (0);
 }
