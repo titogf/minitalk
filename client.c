@@ -6,7 +6,7 @@
 /*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:56:27 by gfernand          #+#    #+#             */
-/*   Updated: 2022/04/19 14:10:54 by gfernand         ###   ########.fr       */
+/*   Updated: 2022/04/19 18:34:15 by gfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,25 @@ int	main(int argc, char **argv)
 
 void	convert_bits(int PID, char	*str)
 {
+	int	bit;
+	int	i;
+
+	i = 0;
+	while (1)
+	{
+		bit	= 0;
+		while (bit <= 8)
+		{
+			if (str[i] & (256 >> bit) == 0)
+				kill(PID, SIGUSR2);
+			else
+				kill(PID, SIGUSR1);
+			bit++;
+		}
+		if (!str[i])
+			break;
+		i++;
+	}
 }
 
 void	ft_putstr(char *str)
