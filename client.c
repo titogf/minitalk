@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (argv[1][i])
 	{
-		if (!(argv[1][i] < 48 && argv[1][i] > 57 || argv[1][0] == '-'))
+		if (!(argv[1][i] >= 48 && argv[1][i] <= 57 || argv[1][0] == '-'))
 		{
 			ft_putstr("WRONG PID\n");
 			exit(1);
@@ -44,10 +44,10 @@ void	convert_bits(int PID, char	*str)
 	i = 0;
 	while (1)
 	{
-		bit	= 0;
-		while (bit <= 8)
+		bit = 0;
+		while (bit < 8)
 		{
-			if (str[i] & (256 >> bit) == 0)
+			if (str[i] & (128 >> bit) == 0)
 				kill(PID, SIGUSR2);
 			else
 				kill(PID, SIGUSR1);
