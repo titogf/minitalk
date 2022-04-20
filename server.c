@@ -16,5 +16,4 @@ int	main(void)
 {
 	write(1, "PID: ", 5);
 	ft_itoa(getpid());
-	return (0);
 }

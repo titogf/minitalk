@@ -16,7 +16,6 @@
 # include <signal.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdarg.h>
 
 void	convert_bits(int PID, char *str);
 void	ft_putstr(char *str);
