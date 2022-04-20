@@ -18,19 +18,19 @@ int	main(int argc, char **argv)
 	int	PID;
 
 	i = 0;
+	if (argc != 3 || argv[2][0] == '\0')
+	{
+		ft_putstr("WRONG PARAMETERS\n");
+		exit(1);
+	}
 	while (argv[1][i])
 	{
-		if (!(argv[1][i] >= 48 && argv[1][i] <= 57 || argv[1][0] == '-'))
+		if (!((argv[1][i] >= 48 && argv[1][i] <= 57) || argv[1][0] == '-'))
 		{
 			ft_putstr("WRONG PID\n");
 			exit(1);
 		}
 		i++;
-	}
-	if (argc != 3 || argv[2][0] == '\0')
-	{
-		ft_putstr("WRONG PARAMETERS\n");
-		exit(1);
 	}
 	PID = ft_atoi(argv[1]);
 	convert_bits(PID, argv[2]);
@@ -47,10 +47,10 @@ void	convert_bits(int PID, char *str)
 		bit = 0;
 		while (bit < 8)
 		{
-			if (str[i] & (128 >> bit) == 0)
-				kill(PID, SIGUSR2);
-			else
+			if (str[i] & (128 >> bit))
 				kill(PID, SIGUSR1);
+			else
+				kill(PID, SIGUSR2);
 			bit++;
 		}
 		if (!str[i])

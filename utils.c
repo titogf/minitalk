@@ -1,3 +1,4 @@
+#include "minitalk.h"
 
 void	ft_putstr(char *str)
 {
@@ -14,7 +15,8 @@ void	ft_putstr(char *str)
 int	ft_atoi(const char *str)
 {
 	unsigned int	result;
-	int				i;
+	int		i;
+	int		sig;
 
 	i = 0;
 	result = 0;
