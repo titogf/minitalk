@@ -18,12 +18,10 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
-int		ft_printf(const char *str, ...);
-int		ft_return_arg(const char *str, va_list lst);
-int		ft_type_di(int n);
-int		ft_cantidad(int n);
-int		ft_type_s(char *str);
-int		ft_atoi(const char *str);
+void	convert_bits(int PID, char *str);
 void	ft_putstr(char *str);
+int		ft_atoi(const char *str);
+int		ft_count(int n);
+int		ft_itoa(int n);
 
 #endif

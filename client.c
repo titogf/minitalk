@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	convert_bits(PID, argv[2]);
 }
 
-void	convert_bits(int PID, char	*str)
+void	convert_bits(int PID, char *str)
 {
 	int	bit;
 	int	i;
