@@ -58,35 +58,3 @@ void	convert_bits(int PID, char *str)
 		i++;
 	}
 }
-
-void	ft_putstr(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-}
-
-int	ft_atoi(const char *str)
-{
-	unsigned int	result;
-	int				i;
-
-	i = 0;
-	result = 0;
-	if (str[0] == '-')
-	{
-		sig = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = (str[i] - 48) + (result * 10);
-		i++;
-	}
-	return (result * sig);
-}
