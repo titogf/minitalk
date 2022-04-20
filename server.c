@@ -28,12 +28,18 @@ int	main(void)
 
 void	handler(int sig)
 {
-	static int	c;
 	static int	bit;
+	static char	c;
 
-	bit = 0;
 	if (sig == SIGUSR1)
 		c |= 128 >> bit;
 	else
 		c ^= 128 >> bit;
+	bit++;
+	if (bit < 8)
+	{
+		write(1, &c, 1);
+		bit = 0;
+		c = 0xFF;
+	}
 }

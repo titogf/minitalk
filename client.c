@@ -53,6 +53,7 @@ void	convert_bits(int PID, char *str)
 				kill(PID, SIGUSR2);
 			bit++;
 		}
+		usleep(5000);
 		if (!str[i])
 			break;
 		i++;
