@@ -16,6 +16,8 @@ FLAGS	= -Wall -Werror -Wextra
 
 H	= minitalk.h
 
+HB	= minitalk_bonus.h
+
 all: $(C1) $(S1)
 
 $(S1): server.c $(H)
@@ -26,9 +28,9 @@ $(C1): client.c $(H)
 
 bonus: $(S2) $(C2)
 
-$(S2): server_bonus.c $(H)
+$(S2): server_bonus.c $(HB)
 	$(CC) $(FLAGS) server_bonus.c $(SRC) -o server_bonus
-$(C2): client_bonus.c $(H)
+$(C2): client_bonus.c $(HB)
 	$(CC) $(FLAGS) client_bonus.c $(SRC) -o client_bonus
 
 clean:
