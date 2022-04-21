@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/21 11:31:18 by gfernand          #+#    #+#             */
+/*   Updated: 2022/04/21 12:55:06 by gfernand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
 void	ft_putstr(char *str)
@@ -15,8 +27,8 @@ void	ft_putstr(char *str)
 int	ft_atoi(const char *str)
 {
 	unsigned int	result;
-	int		i;
-	int		sig;
+	int				i;
+	int				sig;
 
 	i = 0;
 	result = 0;
@@ -58,7 +70,6 @@ int	ft_itoa(int n)
 	s[i] = (n % 10) + 48;
 	s[longi] = '\0';
 	write(1, s, longi);
-	write(1, "\n", 1);
 	free(s);
 	return (0);
 }
@@ -76,4 +87,21 @@ int	ft_count(int n)
 		count++;
 	}
 	return (count);
+}
+
+int	ft_recursive_power(int nb, int power)
+{
+	if (power < 0)
+		return (0);
+	if (power == 0)
+		return (1);
+	if (nb == 0 && power == 0)
+		return (1);
+	if (nb == 0)
+		return (0);
+	while (power > 0)
+	{
+		return (nb * ft_recursive_power(nb, power - 1));
+	}
+	return (0);
 }

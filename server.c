@@ -6,7 +6,7 @@
 /*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:57:16 by gfernand          #+#    #+#             */
-/*   Updated: 2022/04/19 12:10:57 by gfernand         ###   ########.fr       */
+/*   Updated: 2022/04/21 13:11:17 by gfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(void)
 	sa.sa_flags = SA_SIGINFO;
 	write(1, "PID: ", 5);
 	ft_itoa(getpid());
+	write(1, "\n", 1);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
@@ -29,17 +30,44 @@ int	main(void)
 void	handler(int sig)
 {
 	static int	bit;
-	static char	c;
+	static int	i;
+	static char	s[8];
+	int			n;
 
-	if (sig == SIGUSR1)
-		c |= 128 >> bit;
-	else
-		c ^= 128 >> bit;
-	bit++;
-	if (bit < 8)
-	{
-		write(1, &c, 1);
+	if (!i)
+		i = 0;
+	if (!bit)
 		bit = 0;
-		c = 0xFF;
+	if (sig == SIGUSR1)
+		s[i] = '1';
+	else
+		s[i] = '0';
+	i++;
+	bit++;
+	if (bit == 8)
+	{
+		n = ft_caracter(s);
+		write(1, &n, 1);
+		bit = 0;
+		i = 0;
 	}
+}
+
+int	ft_caracter(char *str)
+{
+	int	i;
+	int	bit;
+	int	c;
+
+	i = 0;
+	bit = 7;
+	c = 0;
+	while (str[i])
+	{
+		if (str[i] == '1')
+			c += ft_recursive_power(2, bit);
+		i++;
+		bit--;
+	}
+	return (c);
 }
