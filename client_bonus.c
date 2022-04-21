@@ -6,9 +6,11 @@
 /*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:39:15 by gfernand          #+#    #+#             */
-/*   Updated: 2022/04/21 13:41:32 by gfernand         ###   ########.fr       */
+/*   Updated: 2022/04/21 14:33:57 by gfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minitalk.h"
 
 int	main(int argc, char **argv)
 {
@@ -31,6 +33,7 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	pid = ft_atoi(argv[1]);
+	//signal(SIGUSR2, readed);
 	convert_bits(pid, argv[2]);
 }
 
@@ -54,4 +57,10 @@ void	convert_bits(int PID, char *str)
 		}
 		i++;
 	}
+}
+
+void	readed(int sig)
+{
+	if (sig == SIGUSR2)
+		ft_putstr("RECEIVED STRING\n");
 }

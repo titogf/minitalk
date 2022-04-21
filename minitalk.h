@@ -6,7 +6,7 @@
 /*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:58:02 by gfernand          #+#    #+#             */
-/*   Updated: 2022/04/21 12:48:31 by gfernand         ###   ########.fr       */
+/*   Updated: 2022/04/21 14:21:28 by gfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ int		ft_count(int n);
 int		ft_itoa(int n);
 int		ft_caracter(char *str);
 int		ft_recursive_power(int nb, int power);
+void	readed(int sig);
 
 #endif
