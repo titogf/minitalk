@@ -6,7 +6,7 @@
 /*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:56:27 by gfernand          #+#    #+#             */
-/*   Updated: 2022/04/21 13:15:08 by gfernand         ###   ########.fr       */
+/*   Updated: 2022/04/25 15:32:10 by gfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	convert_bits(pid, argv[2]);
 }
 
-void	convert_bits(int PID, char *str)
+void	convert_bits(int pid, char *str)
 {
 	int	bit;
 	int	i;
@@ -48,9 +48,9 @@ void	convert_bits(int PID, char *str)
 		while (bit < 8)
 		{
 			if ((str[i] & (128 >> bit)) != 0)
-				kill(PID, SIGUSR1);
+				kill(pid, SIGUSR1);
 			else
-				kill(PID, SIGUSR2);
+				kill(pid, SIGUSR2);
 			bit++;
 			usleep(1000);
 		}

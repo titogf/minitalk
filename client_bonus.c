@@ -6,11 +6,11 @@
 /*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:39:15 by gfernand          #+#    #+#             */
-/*   Updated: 2022/04/21 16:59:18 by gfernand         ###   ########.fr       */
+/*   Updated: 2022/04/25 17:29:59 by gfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk_bonus.h"
+#include "minitalk.h"
 
 int	main(int argc, char **argv)
 {
@@ -33,11 +33,10 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	pid = ft_atoi(argv[1]);
-	signal(SIGUSR2, readed);
 	convert_bits(pid, argv[2]);
 }
 
-void	convert_bits(int PID, char *str)
+void	convert_bits(int pid, char *str)
 {
 	int	bit;
 	int	i;
@@ -49,18 +48,12 @@ void	convert_bits(int PID, char *str)
 		while (bit < 8)
 		{
 			if ((str[i] & (128 >> bit)) != 0)
-				kill(PID, SIGUSR1);
+				kill(pid, SIGUSR1);
 			else
-				kill(PID, SIGUSR2);
+				kill(pid, SIGUSR2);
 			bit++;
 			usleep(1000);
 		}
 		i++;
 	}
-}
-
-void	readed(int sig)
-{
-	if (sig == SIGUSR2)
-		ft_putstr("RECEIVED STRING\n");
 }

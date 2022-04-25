@@ -6,7 +6,7 @@
 /*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:58:02 by gfernand          #+#    #+#             */
-/*   Updated: 2022/04/21 16:58:12 by gfernand         ###   ########.fr       */
+/*   Updated: 2022/04/25 11:29:14 by gfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-void	convert_bits(int PID, char *str);
+void	convert_bits(int pid, char *str);
 void	handler(int sig);
 void	ft_putstr(char *str);
 int		ft_atoi(const char *str);

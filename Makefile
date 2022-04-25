@@ -39,7 +39,7 @@ clean:
 fclean: clean
 	rm -f $(C1) $(C2) $(S1) $(S2)
 
-re: fclean all bonus
+re: fclean all
 
 n:
 	norminette
