@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 14:57:16 by gfernand          #+#    #+#             */
-/*   Updated: 2022/04/25 15:43:08 by gfernand         ###   ########.fr       */
+/*   Created: 2022/04/21 13:39:04 by gfernand          #+#    #+#             */
+/*   Updated: 2023/10/30 16:05:05 by gfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "../../minitalk_bonus.h"
 
 int	main(void)
 {
@@ -27,17 +27,14 @@ int	main(void)
 		pause();
 }
 
-void	handler(int sig)
+void	handler(int sig, siginfo_t *info, void *nothing)
 {
-	static int	bit;
-	static int	i;
+	static int	bit = 0;
+	static int	i = 0;
 	static char	s[8];
 	int			n;
 
-	if (!i)
-		i = 0;
-	if (!bit)
-		bit = 0;
+	(void) nothing;
 	if (sig == SIGUSR1)
 		s[i] = '1';
 	else
@@ -50,6 +47,7 @@ void	handler(int sig)
 		write(1, &n, 1);
 		bit = 0;
 		i = 0;
+		kill(info->si_info, SIGUSR2);
 	}
 }
 

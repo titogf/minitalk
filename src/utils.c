@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "../minitalk.h"
 
 void	ft_putstr(char *str)
 {
@@ -32,6 +32,7 @@ int	ft_atoi(const char *str)
 
 	i = 0;
 	result = 0;
+	sig = 1;
 	if (str[0] == '-')
 	{
 		sig = -1;

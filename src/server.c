@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server_bonus.c                                     :+:      :+:    :+:   */
+/*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 13:39:04 by gfernand          #+#    #+#             */
-/*   Updated: 2022/04/25 17:30:36 by gfernand         ###   ########.fr       */
+/*   Created: 2022/04/04 14:57:16 by gfernand          #+#    #+#             */
+/*   Updated: 2023/10/30 16:10:44 by gfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "../minitalk.h"
 
 int	main(void)
 {
@@ -21,23 +21,19 @@ int	main(void)
 	write(1, "PID: ", 5);
 	ft_itoa(getpid());
 	write(1, "\n", 1);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	sigaction(SIGUSR1, &sa, 0);
+	sigaction(SIGUSR2, &sa, 0);
 	while (1)
 		pause();
 }
 
 void	handler(int sig)
 {
-	static int	bit;
-	static int	i;
+	static int	bit = 0;
+	static int	i = 0;
 	static char	s[8];
 	int			n;
 
-	if (!i)
-		i = 0;
-	if (!bit)
-		bit = 0;
 	if (sig == SIGUSR1)
 		s[i] = '1';
 	else
