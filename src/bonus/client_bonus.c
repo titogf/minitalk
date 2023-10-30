@@ -12,10 +12,12 @@
 
 #include "../../minitalk_bonus.h"
 
+void	received_signal(int sig);
+
 int	main(int argc, char **argv)
 {
 	int	i;
-	int	pid;
+	int	server_pid;
 
 	i = 0;
 	if (argc != 3 || argv[2][0] == '\0')
@@ -32,8 +34,15 @@ int	main(int argc, char **argv)
 		}
 		i++;
 	}
-	pid = ft_atoi(argv[1]);
-	convert_bits(pid, argv[2]);
+	server_pid = ft_atoi(argv[1]);
+	signal(SIGUSR1, received_signal);
+	convert_bits(server_pid, argv[2]);
+}
+
+void	received_signal(int sig)
+{
+	if (sig == SIGUSR1)
+		ft_putstr("Message received from server\n");
 }
 
 void	convert_bits(int pid, char *str)
