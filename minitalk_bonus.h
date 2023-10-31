@@ -18,7 +18,7 @@
 # include <stdlib.h>
 
 void	convert_bits(int pid, char *str);
-void    handler(int sig, siginfo_t *info, void *nothing);
+void	handler(int sig, siginfo_t *info, void *nothing);
 void	ft_putstr(char *str);
 int		ft_atoi(const char *str);
 int		ft_count(int n);
