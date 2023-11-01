@@ -6,7 +6,7 @@
 /*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 14:56:27 by gfernand          #+#    #+#             */
-/*   Updated: 2023/11/01 12:43:57 by gfernand         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:56:49 by gfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	handler(int sig, siginfo_t *info, void *nothing)
 void	send_bit(int pid, char *message)
 {
 	static int		server_pid;
-	static char		*full_message;
+	static char		*full;
 	static int		next_c = 0;
 	static int		next_bit = 0;
 	unsigned int	send;
@@ -56,10 +56,10 @@ void	send_bit(int pid, char *message)
 	if (pid != -1)
 		server_pid = pid;
 	if (message != NULL)
-		full_message = message;
-	if (full_message[next_c] == '\0')
+		full = message;
+	if (full[next_c] == '\0')
 		exit(0);
-	send = (unsigned int) full_message[next_c];
+	send = (unsigned int) full[next_c];
 	send = (send & (1 << (7 - next_bit))) >> (7 - next_bit);
 	if (send % 2 == 0)
 		kill(server_pid, SIGUSR1);
