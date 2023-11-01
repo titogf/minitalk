@@ -16,54 +16,50 @@ int	main(void)
 {
 	struct sigaction	sa;
 
-	sa.sa_handler = handler;
-	sa.sa_flags = SA_SIGINFO;
 	write(1, "PID: ", 5);
 	ft_itoa(getpid());
 	write(1, "\n", 1);
+	sa.sa_sigaction = handler;
+	sa.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &sa, 0);
 	sigaction(SIGUSR2, &sa, 0);
 	while (1)
 		pause();
 }
 
-void	handler(int sig)
+void	handler(int sig, siginfo_t *info, void *nothing)
 {
-	static int	bit = 0;
-	static int	i = 0;
-	static char	s[8];
-	int			n;
+	int	pid;
 
+	pid = info->si_pid;
 	if (sig == SIGUSR1)
-		s[i] = '1';
-	else
-		s[i] = '0';
-	i++;
-	bit++;
-	if (bit == 8)
-	{
-		n = ft_caracter(s);
-		write(1, &n, 1);
-		bit = 0;
-		i = 0;
-	}
+		ft_caracter(0, pid);
+	else if (sig == SIGUSR2)
+		ft_caracter(1, pid);
+	(void) nothing;
 }
 
-int	ft_caracter(char *str)
+void	ft_caracter(int bit, int pid)
 {
-	int	i;
-	int	bit;
-	int	c;
+	static unsigned int	c = 0;
+	static int			n_bits = 0;
 
-	i = 0;
-	bit = 7;
-	c = 0;
-	while (str[i])
+	if (pid <= 0)
+		return ;
+	c *= 2;
+	if (bit == 1)
+		c += 1;
+	n_bits++;
+	if (n_bits >= 8)
 	{
-		if (str[i] == '1')
-			c += ft_recursive_power(2, bit);
-		i++;
-		bit--;
+		write(1, &c, 1);
+		if (c == 0)
+		{
+			ft_putstr("WRONG\n");
+			exit(0);
+		}
+		n_bits = 0;
+		c = 0;
 	}
-	return (c);
+	kill(pid, SIGUSR2);
 }

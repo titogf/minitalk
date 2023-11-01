@@ -5,67 +5,69 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 13:39:15 by gfernand          #+#    #+#             */
-/*   Updated: 2023/10/30 16:08:17 by gfernand         ###   ########.fr       */
+/*   Created: 2023/11/01 12:42:37 by gfernand          #+#    #+#             */
+/*   Updated: 2023/11/01 12:44:13 by gfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minitalk_bonus.h"
 
-int	received_signal(int sig);
-
 int	main(int argc, char **argv)
 {
-	int	i;
-	int	server_pid;
+	struct sigaction	sa;
 
-	i = 0;
 	if (argc != 3 || argv[2][0] == '\0')
 	{
 		ft_putstr("WRONG PARAMETERS\n");
 		exit(1);
 	}
-	while (argv[1][i])
+	send_bit(ft_atoi(argv[1]), argv[2]);
+	sa.sa_sigaction = handler;
+	sa.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR2, &sa, 0);
+	while (1)
 	{
-		if (!((argv[1][i] >= 48 && argv[1][i] <= 57) || argv[1][0] == '-'))
-		{
-			ft_putstr("WRONG PID\n");
-			exit(1);
-		}
-		i++;
-	}
-	server_pid = ft_atoi(argv[1]);
-	signal(SIGUSR1, (void *)received_signal);
-	convert_bits(server_pid, argv[2]);
-}
-
-void	convert_bits(int pid, char *str)
-{
-	int	bit;
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		bit = 0;
-		while (bit < 8)
-		{
-			if ((str[i] & (128 >> bit)) != 0)
-				kill(pid, SIGUSR1);
-			else
-				kill(pid, SIGUSR2);
-			bit++;
-			usleep(1000);
-		}
-		i++;
+		pause();
 	}
 }
 
-int	received_signal(int sig)
+void	handler(int sig, siginfo_t *info, void *nothing)
 {
-	static int	count = 0;
+	static int	bit_count = 0;
 
-	if (sig == SIGUSR1)
-		count++;
-	return (count);
+	bit_count++;
+	if (bit_count == 8)
+		bit_count = 0;
+	usleep(500);
+	send_bit(-1, NULL);
+	(void) sig;
+	(void) info;
+	(void) nothing;
+}
+
+void	send_bit(int pid, char *message)
+{
+	static int		server_pid;
+	static char		*full_message;
+	static int		next_c = 0;
+	static int		next_bit = 0;
+	unsigned int	send;
+
+	if (pid != -1)
+		server_pid = pid;
+	if (message != NULL)
+		full_message = message;
+	if (full_message[next_c] == '\0')
+		exit(0);
+	send = (unsigned int) full_message[next_c];
+	send = (send & (1 << (7 - next_bit))) >> (7 - next_bit);
+	if (send % 2 == 0)
+		kill(server_pid, SIGUSR1);
+	else
+		kill(server_pid, SIGUSR2);
+	if (++next_bit >= 8)
+	{
+		next_bit = 0;
+		next_c++;
+	}
 }
